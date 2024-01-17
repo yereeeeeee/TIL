@@ -37,3 +37,10 @@
 Kernel 의 restart 기능 활용하여 순서 다시 설정 
 
 > ! 저장 따로 해줘야 함 !
+
+
+# nb 명령어로 jupyter notebook 실행 (git bash에서)
+1. `$ vim ~/.bashrc`
+2. `alias nb="jupyter notebook"`
+3. `source ~/.bashrc`
+4. `nb`
