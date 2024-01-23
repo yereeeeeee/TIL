@@ -18,7 +18,7 @@ for i in range(10):
     user_dict['lng'] = parsed_data[i]['address']['geo']['lng']
     user_dict['name'] = parsed_data[i]['name']
 
-    if float(user_dict['lat']) < 80 and float(user_dict['lng']) > -80 :
+    if -80 < float(user_dict['lat']) < 80 and - 80 < float(user_dict['lng']) < 80 :
         dummy_data.append(user_dict)
 
 print(dummy_data)
