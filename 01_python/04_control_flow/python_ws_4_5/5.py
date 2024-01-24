@@ -299,62 +299,11 @@ black_list = [
     'Warren-Stewart',
 ]
 
-# user_list를 생성
+# ls라는 리스트의 요소 하나씩 validation
 def create_user(ls):
-    for user in ls:
-        # 넘겨 받은 사용자 목록을 순회하며 확인
-        if is_validation(user['blood_group'], user['company'], user['mail'], user['name'], user['website']) == True:
-            user_list = []
-            user_list.append(user)
-        
+    for i in ls:
+        is_validation(i)
 
-    print(user_list)
-
-# 올바른 데이터로 이루어져있는가?
-def is_validation(blood_group, company, mail, name, website):
-    err_ls = []
-    p = 0
-    
-    # blood_type
-    if blood_group in blood_types:
-        pass
-    else:
-        err_ls.append('blood_group')
-        p += 1
-    
-    # company
-    if company not in black_list:
-        pass
-    else:
-        return 'blocked'
-    
-    # mail
-    if '@' in mail:
-        pass
-    else:
-        err_ls.append('mail')
-        p += 1
-    
-    # name
-    if 2 <= len(name) <= 30:
-        pass
-    else:
-        err_ls.append('name')
-        p += 1
-    
-    # website
-    if len(website) > 0:
-        pass
-    else:
-        err_ls.append('website')
-        p += 1
-
-
-    if p > 0:
-        return False, err_ls
-    else:
-        return True
-        
-
-
-create_user(user_data)
+# 5가지 요소 하나씩 validation
+def is_validation(x):
+    pass
