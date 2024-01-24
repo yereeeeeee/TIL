@@ -17,6 +17,7 @@ many_user = list(map(create_user, name, age, address))
 
 # 실습 3
 def decrease_book(book_num):
+    number_of_book = 100
     number_of_book -= book_num
     return number_of_book
 

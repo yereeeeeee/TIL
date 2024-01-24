@@ -301,9 +301,38 @@ black_list = [
 
 # ls라는 리스트의 요소 하나씩 validation
 def create_user(ls):
+    num_err = 0
+    user_list = []
     for i in ls:
-        is_validation(i)
+        if is_validation(i) == 'blocked':
+            num_err += 1
+        elif is_validation(i) == True:
+            user_list.append(i)
+        else:
+            user_list.append(i)
+            num_err += 1
+    print(f'잘못된 데이터로 구성된 유저의 수는 {num_err} 입니다.')
+    print(user_list)
+
 
 # 5가지 요소 하나씩 validation
 def is_validation(x):
-    pass
+    err = []
+    if x['blood_group'] not in blood_types:
+        x['blood_group'] = None
+        err.append('blood_group')
+    elif x['company'] in black_list:
+        return 'blocked'
+    elif '@' not in x['mail']:
+        err.append('mail')
+    elif len(x['name']) < 2 or len(x['name']) > 30:
+        err.append('name')
+    elif len(x['website']) == 0:
+        err.append('website')
+    else: return True
+    
+
+create_user(user_data)
+
+# 만약 하나라도 잘못된 값이 있다면 False를 반환하고, 어떤 데이터가 잘못 기록되었는지도 함께 반환한다.
+# 2개 이상의 데이터가 잘못 되었다면 리스트 형태로 목록을 반환한다.
