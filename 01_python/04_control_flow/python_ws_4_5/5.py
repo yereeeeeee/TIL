@@ -317,18 +317,17 @@ def create_user(ls):
 
 # 5가지 요소 하나씩 validation
 def is_validation(x):
-    err = []
     if x['blood_group'] not in blood_types:
         x['blood_group'] = None
-        err.append('blood_group')
+        return False
     elif x['company'] in black_list:
         return 'blocked'
     elif '@' not in x['mail']:
-        err.append('mail')
+        return False
     elif len(x['name']) < 2 or len(x['name']) > 30:
-        err.append('name')
+        return False
     elif len(x['website']) == 0:
-        err.append('website')
+        return False
     else: return True
     
 
