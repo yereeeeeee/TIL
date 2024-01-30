@@ -7,13 +7,10 @@ for t in range(T):
     N, M = map(int, input().split())
     a_i = list(map(int, input().split()))
 
-    for m1 in range(M):
-        arr = []
-        sum = 0
-        for m in range(M):
-            sum += a_i[m]
-        arr.append(sum)
-    print(arr)
-
-
-    #print(f'#{t+1} {max(a_j) - min(a_j)}')
+    total = []
+    for n in range(0, N-M+1):
+        ls = []
+        for m in range(n, M+n):
+            ls.append(a_i[m])
+        total.append(sum(ls))
+    print(f'#{t+1} {max(total) - min(total)}')
