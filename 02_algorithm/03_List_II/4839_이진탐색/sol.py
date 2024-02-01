@@ -43,3 +43,6 @@ for test_case in range(1, T+1):
         print(f'#{test_case} A')
     else:
         print(f'#{test_case} 0')
+
+    # 탐색하는 반복문을 함수로 바꾸어서 사용가능함.
+    # 재귀함수로 바꿀 수도 있음.
