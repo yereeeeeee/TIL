@@ -14,3 +14,4 @@ for test_case in range(1, T+1):
     print(*result)
     
 # bubble, counting, selection 으로 풀어보기
+
