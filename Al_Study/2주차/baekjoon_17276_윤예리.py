@@ -6,6 +6,7 @@ for tc in range(1, T+1):
     result = [[0] * n for _ in range(n)]
 
     def rotate(A, D):
+        global result
         if D == 0:
             return result
         elif D > 0:
