@@ -3,7 +3,7 @@ sys.stdin = open('input.txt')
 
 T = int(input())
 for tc in range(1, T+1):
-    print(f'# {tc}')
+    print(f'#{tc}')
     N = int(input())
 
     def p_tri(n):
