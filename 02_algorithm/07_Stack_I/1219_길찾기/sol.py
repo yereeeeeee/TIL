@@ -1,32 +1,26 @@
 import sys
 sys.stdin = open('input.txt')
 
-def DFS(start, end):
-    visited = [0] * (end*1)
-    stack = []
+def dfs(start):
     visited[start] = 1
-    while True:
-        for w in adjl[start]:
-            if visited[w] == 0:
-                stack.append(start)
-                start = w
-                visited[w] = 1
-                print(start)
-                break
-            else:
-                if stack:
-                    start = stack.pop()
-                else:
-                    break
+    stack = [start]
 
+    while stack:
+        now = stack.pop()
+        visited[now] = 1
+        for next in adjl[now]:
+            if not visited[next]:
+                stack.append(next)
 
-tc, length = map(int, input().split())
-num_set = list(map(int, input().split()))
-N_list = list(sorted(num_set))
-N = N_list[-2]
-adjl = [[] for _ in range(N+1)]
+for _ in range(10):
+    tc, length = map(int, input().split())
+    num_set = list(map(int, input().split()))
 
-for i in range(length):
-    adjl[num_set[i*2]].append(num_set[i*2+1])
+    adjl = [[] for _ in range(100)]
+    visited = [0] * 100
 
-print(DFS(0, 99))
+    for i in range(length):
+        adjl[num_set[i*2]].append(num_set[i*2+1])
+
+    dfs(0)
+    print(f'#{tc} {visited[99]}')
