@@ -1,23 +1,24 @@
 import sys
 sys.stdin = open('input.txt')
 
-def route(ls, s, g):
-    stack = ls[s]
-    while g:
-        if stack:
-            here = stack.pop()
-            stack = ls[here]
-        else:
-            return 0
-    return 1
+def dfs(st, V, s):
+    V[s] = 1
+    for k in graph[s]:
+        if V[k] == 0:
+            dfs(st, V, k)
 
 T = int(input())
 for tc in range(1, T+1):
-    print(f'#{tc}')
+    print(f'#{tc}', end=' ')
     v, e = map(int, input().split())
-    ls = [[] * 51 for _ in range(51)]
-    for i in range(e):
+    visited = [0] * 51
+    stack = []
+
+    graph = [[] for _ in range(51)]
+    for _ in range(e):
         a, b = map(int, input().split())
-        ls[a].append(b)
-    s, g = map(int, input().split())
-    print(route(ls, s, g))
+        graph[a].append(b)
+
+    S, G = map(int, input().split())
+    dfs(stack, visited, S)
+    print(visited[G])
