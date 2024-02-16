@@ -5,22 +5,20 @@ T = int(input())
 for tc in range(1, T+1):
     N, M = map(int, input().split())
     pizza = list(map(int, input().split()))
-    next_ = [i for i in range(M)]
-    on_fire = []
+    next_ = [i for i in range(M)]   # 피자의 인덱스 리스트
+    on_fire = []    # 화덕
     for j in range(N):
         on_fire.append(next_.pop(0))
 
     print(f'#{tc}', end=' ')
     while len(on_fire) > 1:
-        a = on_fire.pop(0)
-        if pizza[a] > 0:
-            pizza[a] //= 2
-            on_fire.append(a)
-        else:
-            pizza[a] = 0
-            if next_:
+        a = on_fire.pop(0)  # 화덕에서 하나를 꺼낸다.
+        pizza[a] //= 2  # 치즈가 녹아있음
+        if pizza[a] == 0:   # 꺼낸 피자 확인
+            if next_:   # 녹았으면 다음 피자를 가져온다.
                 on_fire.append(next_.pop(0))
-            continue
+        else:   # 덜 녹았으면 다시 넣는다.
+            on_fire.append(a)
 
     print(int(*on_fire)+1)
 
