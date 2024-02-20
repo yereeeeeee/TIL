@@ -1,23 +1,25 @@
 import sys
 sys.stdin = open('input.txt')
 
+def multi(x, y, a, b):    # x: 작은 값, y: 큰 값
+    result = []
+    for i in range(y-x+1):
+        value = 0
+        for j in range(x):
+            value += a[j]*b[j+i]
+        result.append(value)
+    return max(result)
+
 T = int(input())
-
 for tc in range(1, 11):
-    N, M = map(int, input().split())
-    Ai = list(map(int, input().split()))
-    Bj = list(map(int, input().split()))
+    print(f'#{tc}', end=' ')
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
 
-    if N < M:   # M이 더 길다면
-        Ai, Bj = Bj, Ai # 두 값을 바꿔서 항상 변수 N에 든 값이 더 길도록 바꾼다.
-        N, M = M, N
+    if n < m:
+        print(multi(n, m, a, b))
+    else:
+        print(multi(m, n, b, a))
 
-    result = 0  # 최대 값
-    for i in range(N-M + 1):  # 두 배열의 길이의 차 만큼 진행
-        sum = 0  # 각 행별로 계산할 임시 정수
-        for j in range(len(Bj)):  # 최소 배열의 길이 만큼만 조사
-            sum += Bj[j] * Ai[j + i]
-        if sum > result:
-            result = sum
 
-    print(f'#{tc} {result}')
