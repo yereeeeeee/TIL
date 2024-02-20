@@ -5,18 +5,18 @@ T = int(input())
 for tc in range(1, T+1):
     print(f'#{tc}', end=' ')
     N = int(input())
-    card = list(enumerate(map(int, input().split())))
-    stack = [card]
-    rsp = []
+    card = list(map(int, input().split()))
 
-    while stack:
-        a = stack.pop(0)
-        if len(a) == 1 or 2:
-            rsp.append(a)
-        if len(card) % 2 == 0:
-            stack.append(a[:len(a)//2])
-            stack.append(a[len(a)//2:])
+    def tournament(start, end):
+        # 하나 남을 때 까지 쪼갠다.
+        # 하나 남으면 남은 원소의 index를 return
+        if start == end:
+            return start
         else:
-            stack.append(a[:len(a)//2])
-            stack.append(a[len(a)//2:len(a)-1])
-            stack.append([a[-1]])
+            mid = (start+end) // 2
+            left = tournament(start, mid)
+            right = tournament(mid+1, end)
+
+        # return 받은 값을 가지고 가위바위보
+
+

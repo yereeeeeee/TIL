@@ -20,15 +20,15 @@ for tc in range(1, T+1):
     result = []
 
     # 가로
-    print(arr)
     result.append(check(arr))
 
+    h_arr = [[0]*9 for _ in range(9)]
     # 세로
     for i in range(9):
-        for j in range(8, -1, -1):
-            arr[i][j], arr[j][i] = arr[j][i], arr[i][j]
-    print(arr)
-    result.append(check(arr))
+        for j in range(9):
+            h_arr[i][j] = arr[j][i]
+    result.append(check(h_arr))
+    #print(h_arr)
 
     new_arr = []
     # 3x3 격자
@@ -41,7 +41,6 @@ for tc in range(1, T+1):
             new_arr.append(A)
     result.append(check(new_arr))
 
-    print(result)
     if 0 in result:
         print(0)
     else:
