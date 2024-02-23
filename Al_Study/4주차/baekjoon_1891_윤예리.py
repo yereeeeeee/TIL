@@ -5,57 +5,47 @@
 '''
 
 # 조각 위치 찾는 함수
-def pos(n, i, j):
+def pos(num, index, i, j, size):
     # print(i, j)
-    if len(i) == 1:
-        return i[0], j[0]
-    a = int(n.pop(0))
-    if a == 1:      # 1사분면
-        new_i = i[:(len(i)//2)]
-        new_j = j[(len(j)//2):]
-    elif a == 2:    # 2사분면
-        new_i = i[:(len(i)//2)]
-        new_j = j[:(len(j)//2)]
-    elif a == 3:    # 3사분면
-        new_i = i[(len(i)//2):]
-        new_j = j[:(len(j)//2)]
-    else:           # 4사분면
-        new_i = i[(len(i)//2):]
-        new_j = j[(len(j)//2):]
+    if size == 0:
+        return i, j
 
-    return pos(n, new_i, new_j)
+    if num[index] == '1':      # 1사분면
+        return pos(num, index+1, i, j+size, size//2)
+    elif num[index] == '2':    # 2사분면
+        return pos(num, index+1, i, j, size//2)
+    elif num[index] == '3':    # 3사분면
+        return pos(num, index+1, i+size, j, size//2)
+    elif num[index] == '4':    # 4사분면
+        return pos(num, index+1, i+size, j+size, size//2)
 
 # 사분면 찾는 함수
-def find(n, i, j):
-    if n == i+j:
-        return
+def find(i, j, size, result):
+    # print(result)
+    if size == 0:
+        return result
     else:
-        if n[0] in i[:(len(i)//2)] and n[1] in j[(len(j)//2):]: # 1사분면
-            print(1, end='')
-            find(n, i[:(len(i)//2)], j[(len(j)//2):])
-        elif n[0] in i[:(len(i)//2)] and n[1] in j[:(len(j)//2)]:
-            print(2, end='')
-            find(n, i[:(len(i)//2)], j[:(len(j)//2)])
-        elif n[0] in i[(len(i)//2):] and n[1] in j[:(len(j)//2)]:
-            print(3, end='')
-            find(n, i[(len(i)//2):], j[:(len(j)//2)])
-        else:
-            print(4, end='')
-            find(n, i[(len(i)//2):], j[(len(j)//2):])
-
+        if 0<=i<size and size<=j<size*2:    # 1사분면
+            return find(i, j-size, size//2, result+'1')
+        elif 0<=i<size and 0<=j<size:       # 2사분면
+            return find(i, j, size//2, result+'2')
+        elif size<=i<size*2 and 0<=j<size:    # 3사분면
+            return find(i-size, j, size//2, result+'3')
+        elif size<=i<size*2 and size<=j<size*2:      # 4사분면
+            return find(i-size, j-size, size//2, result+'4')
 
 d, quad = map(int, input().split())
 x, y = map(int, input().split())
-arr = [[0] * (2**d) for _ in range(2**d)]
-ls_x = [i for i in range(1, 2**d+1)]
-ls_y = [i for i in range(1, 2**d+1)]
-q = list(str(quad))
+q = str(quad)
 
-#print(pos(q, ls_x, ls_y))
-p = list(pos(q, ls_x, ls_y))
-# 이동
-p[0] -= y
-p[1] += x
-find(p, ls_x, ls_y)
+r, c = pos(q, 0, 0, 0, 2**(d-1))
+# print(r, c)
+new_r = r-y
+new_c = c+x
+# print(r, c, new_r, new_c)
+if 0<=new_r<2**d and 0<=new_c<2**d:
+    print(find(new_r, new_c, 2**(d-1), ''))
+else:   # 존재하지 않는 사분면인 경우에는 -1을 출력한다.
+    print(-1)
 
 
