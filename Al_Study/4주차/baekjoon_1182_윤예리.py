@@ -10,7 +10,7 @@ for i in ls:
 
 cnt = 0
 for set in subsets:
-    if sum(set) == s:
+    if sum(set) == s  :
         cnt += 1
 
 print(subsets)

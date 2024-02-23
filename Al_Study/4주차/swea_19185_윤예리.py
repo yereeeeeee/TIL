@@ -11,4 +11,4 @@ for tc in range(1, T+1):
         yj = (Y % n)-1
 
         print(s[yi]+t[yj], end=' ')
-# ???왜 틀림 ;;
+    print()
