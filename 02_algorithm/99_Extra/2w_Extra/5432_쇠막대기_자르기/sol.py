@@ -6,20 +6,19 @@ for tc in range(1, T+1):
     print(f'#{tc}', end=' ')
 
     arr = list(input())
-    stack = []
+    stack = 0
     before = ''
     cnt = 0
-    while arr:
-        a = arr.pop(0)
-        if a == '(':
-            stack.append(a)
+    for char in arr:
+        if char == '(':
+            stack += 1
         else:
             if before == ')':
-                stack.pop()
+                stack -= 1
                 cnt += 1
             else:
-                stack.pop()
-                cnt += len(stack)
-        before = a
+                stack -= 1
+                cnt += stack
+        before = char
     print(cnt)
     # timeout

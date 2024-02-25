@@ -1,31 +1,44 @@
 import sys
 sys.stdin = open('input.txt')
+# from itertools import permutations
+
+def find(x, value):
+    global min_v
+    if value > min_v:
+        return
+
+    if x == N:
+        if value < min_v:
+            min_v = value
+            return
+
+    for i in range(N):
+        if not visited[i]:
+            visited[i] = 1
+            find(x+1, value+arr[x][i])
+            visited[i] = 0
+
 
 T = int(input())
 for tc in range(1, T+1):
+    print(f'#{tc}', end=' ')
     N = int(input())
     arr = [list(map(int, input().split())) for _ in range(N)]
-    min_v = 30
+    min_v = 100
     P = [i for i in range(N)]
+    visited = [0] * N
+    find(0, 0)
+    print(min_v)
 
-    # 순열
-    def f(i, k):
-        global min_v
-        if i == k:  # 순열이 완성 되었을 때
-            s = 0   # 선택한 원소의 합
-            for j in range(k):  # j 행에 대해
-                if s < min_v:
-                    s += arr[j][P[j]]  # j 행에서 P[j] 열을 고른 경우의 합 구하기
-                else:
-                    break
-            if s < min_v:
-                min_v = s
 
-        else:
-            for j in range(i, k):  # P[i] 자리에 올 원소 P[j]
-                P[i], P[j] = P[j], P[i]
-                f(i + 1, k)
-                P[i], P[j] = P[j], P[i]  # 교환 전으로 복구
 
-    f(0, N)
-    print(f'#{tc} {min_v}')
+    # 메모리 초과 ㅠㅠ
+    # ls = list(permutations(P, N))   # 순열
+    # # print(ls)
+    # for i in ls:    # 순열별로 계산
+    #     value = 0
+    #     for j in range(N):
+    #         value += arr[j][i[j]]   # 0번째 행, 0번째 경우, 0, 1, 2 번 숫자를 선택
+    #     if min_v > value:
+    #         min_v = value
+    # print(min_v)
