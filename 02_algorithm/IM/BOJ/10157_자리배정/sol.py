@@ -1,4 +1,5 @@
-# import sys
+import sys
+sys.setrecursionlimit(1000000)
 # sys.stdin = open('input.txt')
 
 def go_up(i, j, value):
@@ -64,4 +65,13 @@ east = c-1
 max = r*c
 
 go_up(r-1, 0, 1)
-print(arr)
+arr[r//2][c//2] = max
+result = []
+
+k = int(input())
+for i in range(r):
+    if k in arr[i]:
+        result.append(arr[i].index(k))
+        print(result[0]+1, r-i)
+if not result:
+    print(0)
