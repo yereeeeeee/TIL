@@ -1,60 +1,66 @@
 import sys
 sys.stdin = open('input.txt')
 
-# 왼쪽
-def find_top_left(i, a):
-    global result
+'''
+1. 제일 큰 수를 가진 idx를 찾는다.
+2. 그 idx를 기준으로 왼쪽과 오른쪽으로 나누어 계산한다.
+3. 왼쪽과 오른쪽에서 각각 가운데로 순회하며 자기보다 높은 기둥이 있을 때,
+    (1) 이때까지의 width 와 heigth를 곱해 넓이 계산
+    (2) 자기보다 높은 기둥을 만나면 반복
+'''
 
-    new_a = a[:i]       # max값 왼쪽
-    if not new_a:
-        return
-
-    j = new_a.index(max(new_a))
-    if max(new_a) == 0:
-        return
+# idx 가 현재 위치, h는 저장된 높이, w는 저장된 가로 좌표
+def left_area(idx, h, w):
+    global area
+    while idx <= max_h:
+        if h < arr[idx]:
+            area += (idx-w) * h
+            return left_area(idx, arr[idx], idx)
+        else:
+            idx += 1
     else:
-        result += max(new_a) * (i - j)
-        find_top_left(j, new_a)
-
-
-# 오른쪽
-def find_top_right(i, a):
-    global result
-
-    new_a = a[i:]
-    #print(new_a)
-    if not new_a:
         return
-    j = new_a.index(max(new_a))
-    if max(new_a) == 0:
-        return
+
+def right_area(idx, h, w):
+    global area
+    while idx >= max_h:
+        if h < arr[idx]:
+            area += (w-idx) * h
+            return right_area(idx, arr[idx], idx)
+        else:
+            idx -= 1
     else:
-        result += max(new_a) * (j-i)
-        find_top_right(j, new_a)
+        return
 
 
 n = int(input())
-ls = []
-L = []
+col = []
+
+# 값 받아오기
 for _ in range(n):
     l, h = map(int, input().split())
-    ls.append([l, h])
-    L.append(l)
+    col.append((l, h))
 
-arr = [0] * (max(L)+1)
-
-for i in ls:
+# 기둥 높이를 나타낸 리스트(arr) 만들기
+width = max(col)[0]
+arr = [0] * (width+1)
+for i in col:
     arr[i[0]] = i[1]
-print(arr)
+
+# 가장 높은 기둥을 기준으로 좌우 나누기
+max_h = arr.index(max(arr))
+
+area = arr[max_h]
+left_area(0, arr[0], 0)
+right_area(width, arr[width], width)
+print(area)
 
 
-top = arr.index(max(arr))
-result = max(arr)
 
-find_top_left(top, arr)
-find_top_right(top+1, arr)
 
-#print(result)
+
+
+
 
 
 
