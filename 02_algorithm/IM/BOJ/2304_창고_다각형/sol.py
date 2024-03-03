@@ -1,5 +1,37 @@
 import sys
 sys.stdin = open('input.txt')
+#
+# n = int(input())
+# col = []
+#
+# # 값 받아오기
+# for _ in range(n):
+#     l, h = map(int, input().split())
+#     col.append((l, h))
+#
+# # 기둥 높이를 나타낸 리스트(arr) 만들기
+# width = max(col)[0]
+# height = max(col, key=lambda x:x[1])[1]
+# arr = [0] * (width+1)
+# for i in col:
+#     arr[i[0]] = i[1]
+#
+# k = 0
+# result = 0
+# while k <= height:
+#     for left in range(width+1):
+#         for right in range(width, -1, -1):
+#             if arr[left] > k and arr[right] > k:
+#                 if left == right:
+#                     print(result)
+#                     exit()
+#
+#                 print(left, right)
+#                 result += (right - left + 1)
+#                 k += 1
+#                 break
+#
+
 
 '''
 1. 제일 큰 수를 가진 idx를 찾는다.

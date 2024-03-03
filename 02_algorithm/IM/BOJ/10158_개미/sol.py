@@ -3,10 +3,23 @@ w, h = map(int, input().split())
 # arr = [[0] * w for _ in range(h)]
 
 p, q = map(int, input().split())
-# 처음 개미 위치: x, y
-y = p
-x = h-q
 t = int(input())
+
+tp = (p+t)//w
+tq = (q+t)//h
+
+if tp % 2 == 0:
+    x = (p + t) % w
+else:
+    x = w - (p + t) % w
+
+if tq % 2 == 0:
+    y = (q + t) % h
+else:
+    y = h - (q + t) % h
+
+print(x, y)
+
 
 '''
 # 1. 시간 초과

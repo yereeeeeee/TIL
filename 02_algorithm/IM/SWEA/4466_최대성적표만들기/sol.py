@@ -2,9 +2,6 @@ import sys
 sys.stdin = open('input.txt')
 from itertools import combinations
 
-def find():
-
-
 T = int(input())
 for tc in range(1, T+1):
     print(f'#{tc}', end=' ')
