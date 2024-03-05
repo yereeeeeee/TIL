@@ -6,6 +6,41 @@ A = [list(map(int, input())) for _ in range(n)]
 B = [list(map(int, input())) for _ in range(n)]
 cnt = 0
 
-for i in range(n):
-    for j in range(m):
-        
+# 그리디...
+
+
+# 틀렸습니다.
+#
+# for i in range(n-2):
+#     for j in range(m-2):
+#         if A == B:
+#             break
+#
+#         # 가로 한 줄이 다 B와 반대면 바꾼다.
+#         check = 0
+#         for k in range(j, j+3):
+#             # if 1 - A[i][k] == B[i][k]:
+#             if abs(A[i][k] - 1) == B[i][k]:
+#                 check += 1
+#         if check == 3:
+#             for r in range(i, i+3):
+#                 for c in range(j, j+3):
+#                     A[r][c] = abs(A[r][c] - 1)
+#             cnt += 1
+#
+#         else:        # 세로도 확인
+#             check = 0
+#             for k in range(i, i+3):
+#                 # if 1 - A[k][j] == B[k][j]:
+#                 if abs(A[k][j] - 1) == B[k][j]:
+#                     check += 1
+#             if check == 3:
+#                 for r in range(i, i+3):
+#                     for c in range(j, j+3):
+#                         A[r][c] = abs(A[r][c] - 1)
+#                 cnt += 1
+#
+# if A == B:
+#     print(cnt)
+# else:
+#     print(-1)

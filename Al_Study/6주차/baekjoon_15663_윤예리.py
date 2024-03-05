@@ -1,6 +1,9 @@
 def per(result = [], i = 0):
     if len(result) == m:
-        print(*result)
+        if result in total:
+            pass
+        else:
+            total.append(result)
         return
 
     if i < len(arr):
@@ -8,5 +11,12 @@ def per(result = [], i = 0):
         per(result, i+1)
 
 n, m = map(int, input().split())
-arr = sorted(list(set(map(int, input().split()))))
-per()
+arr = list(map(int, input().split()))
+total = []
+
+for i in range(n):
+    per()
+    arr.append(arr.pop(0))
+
+for t in sorted(total):
+    print(*t)
