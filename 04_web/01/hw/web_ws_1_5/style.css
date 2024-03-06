@@ -1,0 +1,49 @@
+.board {
+  width: 550px;
+}
+
+header {
+  text-align: justify;
+  background-color: black;
+}
+
+.ssafy_logo {
+  height: 70px;
+  text-align: left;
+}
+
+.ham_btn {
+  height: 40px;
+  margin-bottom: 10px;
+  right: 0;
+}
+
+h1 {
+  font-weight: 400;
+  line-height: 60%;
+}
+
+.info_div {
+  padding: 10px;
+  background-color: rgb(233, 233, 233);
+  font-weight: bold;
+}
+
+.sub_info_div {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: gray;
+}
+
+.multicampus_logo {
+  height: 50px;
+}
+
+.info_plus {
+  width: 100%;
+  text-align: justify;
+}
+
+.btm_info {
+  
+}

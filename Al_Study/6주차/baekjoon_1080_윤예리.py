@@ -6,9 +6,10 @@ A = [list(map(int, input())) for _ in range(n)]
 B = [list(map(int, input())) for _ in range(n)]
 cnt = 0
 
+
+
+
 # 그리디...
-
-
 # 틀렸습니다.
 #
 # for i in range(n-2):
