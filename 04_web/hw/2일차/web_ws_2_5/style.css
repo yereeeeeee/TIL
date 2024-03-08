@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+}
+
+body {
+  font-family: "Kaisei Tokumin", serif;
+  font-weight: 400;
+  background-color: rgba(248, 248, 248, 1);
+}
+
+a {
+  color: initial;
+  text-decoration: none;
+}
+
+header {
+  height: 100px;
+  background-color: black;
+  top: 0;
+  margin: 0;
+  display: flex;
+}
+
+.main-logo {
+  color: white;
+  margin: 50px;
+  font-size: 25px;
+}
+
+.main-menu-wrap {
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  right: 0;
+  position: absolute;
+}
+
+.main-menu {
+  color: white;
+  margin: 50px;
+}
+
+.main-box {
+  position: relative;
+}
+
+.main-img {
+  width: 100%;
+  height: 660px;
+  position: absolute;
+  object-fit: cover;
+  top: -10px;
+  z-index: -10;
+}
+
+.main-quotes-wrap {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 754px;
+}
+
+.main-quotes {
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+.main-searchbox {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 1067px;
+  height: 92px;
+  left: 427px;
+  top: 296px;
+
+  border: 2px solid #FFFFFF;
+  border-radius: 69px;
+  align-items: center;
+  text-align: center;
+}
+
+.search-item-wrap {
+  position: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.search-box-input {
+  width: 90%;
+  height: 90%;
+  border: none;
+  background-color: initial;
+  font-size: large;
+  color: white;
+  font-family: inherit;
+  font-size: 24px;
+}
+
+.search-box-input:focus {
+  outline: none;
+}
+
+.search-icon {
+
+position: absolute;
+width: 47px;
+height: 49px;
+left: 457px;
+top: 316px;
+
+
+}
