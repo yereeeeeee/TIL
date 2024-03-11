@@ -76,18 +76,18 @@ header {
 
   border: 2px solid #FFFFFF;
   border-radius: 69px;
-  align-items: center;
-  text-align: center;
+
 }
 
 .search-item-wrap {
-  position: flex;
-  text-align: center;
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
   align-items: center;
 }
 
 .search-box-input {
-  width: 90%;
+  width: 88%;
   height: 90%;
   border: none;
   background-color: initial;
@@ -102,12 +102,40 @@ header {
 }
 
 .search-icon {
-
-position: absolute;
-width: 47px;
-height: 49px;
-left: 457px;
-top: 316px;
-
-
+  width: 47px;
+  height: 49px;
+  margin-left: 20px;
 }
+
+.sub-header {
+  width: 100%;
+  height: 80px;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+
+.sub-logo {
+  color: white;
+  font-size: 25px;
+  width: fit-content;
+  margin-left: 50px;
+}
+
+.sub-menu {
+  color: white;
+  margin: 0px 50px;
+}
+
+.sub-menu-wrap {
+  text-align: right;
+  display: flex;
+  position: absolute;
+  right: 0;
+}
+
+.book-list-wrap {
+
+} 
