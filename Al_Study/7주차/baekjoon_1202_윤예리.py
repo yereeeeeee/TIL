@@ -1,11 +1,31 @@
-from collections import deque
+# pypy
 
+import heapq
 n, k = map(int, input().split())
-for _ in range(n):
-    m, v = map(int, input().split())
 
+jewels = []
+for _ in range(n):
+    w, p = map(int, input().split())
+    heapq.heappush(jewels, (w, p))
+jewels.sort()       # 가벼운 순으로, 가벼우면 싼 순으로
+
+bags = []
 for _ in range(k):
-    c = int(input())
+    bags.append(int(input()))
+
+stolen = []
+result = 0
+for bag in sorted(bags):
+    while jewels and bag >= jewels[0][0]:
+        heapq.heappush(stolen, -jewels[0][1])       # stolen에 가치가 가장 큰 보석을 넣음
+        heapq.heappop(jewels)                       # 이미 순회한 애들은 다음 가방에 넣을 필요 없으므로 pop해줌
+    if stolen:      
+        result += -heapq.heappop(stolen)            # 일단 stolen에 다 담아놓고 제일 비싼거 result에 저장
+
+print(result)
+
+
+
 
 # 시간초과
 # n, k = map(int, input().split())
