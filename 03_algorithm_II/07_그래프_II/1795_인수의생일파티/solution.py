@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input.txt')
+sys.stdin = open("input.txt")
 from heapq import *
 
 def dijkstra(start):
@@ -27,19 +27,25 @@ def dijkstra(start):
 
     return distance
 
-
 T = int(input())
 for tc in range(1, T+1):
     print(f'#{tc}', end=' ')
 
-    v, e = map(int, input().split())
-    start = 0
+    n, m, X = map(int, input().split())
+    graph = [[] for _ in range(n+1)]
 
-    graph = [[] for _ in range(v+1)]
-    distance = [float('inf')] * (v+1)
+    for _ in range(m):
+        x, y, c = map(int, input().split())
+        graph[x].append((c, y))
 
-    for _ in range(e):
-        s, e, w = map(int, input().split())
-        graph[s].append((w, e))
+    tmp = [[]]
+    for i in range(n):
+        distance = [float('inf')] * (n+1)
+        tmp.append(dijkstra(i+1))
 
-    print(dijkstra(0)[-1])
+    result = 0
+    for j in range(1, n+1):
+        if tmp[j][X] + tmp[X][j] > result:
+            result = tmp[j][X] + tmp[X][j]
+    print(result)
+

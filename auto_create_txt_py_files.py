@@ -19,7 +19,7 @@ for n_file in range(len(file_names)):
     else:
         os.mkdir(file_names[n_file])
         # 파이썬 실행파일 생성
-        f = open(f'{current_dir}/{file_names[n_file]}/solution.py', 'w')
+        f = open(f'{current_dir}/{file_names[n_file]}/sol.py', 'w')
         f.write('import sys\nsys.stdin = open("input.txt")\n')
         f.close()
         # input.txt 파일 생성
