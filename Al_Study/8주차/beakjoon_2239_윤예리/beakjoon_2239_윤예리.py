@@ -1,3 +1,6 @@
+import sys
+sys.stdin = open("input.txt")
+
 def check_(sudoku):
     if 0 in sudoku:
         return False
