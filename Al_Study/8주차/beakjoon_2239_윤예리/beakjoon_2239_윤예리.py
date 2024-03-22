@@ -1,46 +1,59 @@
 import sys
 sys.stdin = open("input.txt")
 
-def check_(sudoku):
-    if 0 in sudoku:
-        return False
-
+def row_check(i, num):
     # 가로
-    for i in sudoku:
-        cnt = [0] * 9
-        for j in i:
-            if cnt[j-1] == 0:
-                cnt[j-1] = 1
-            else:
-                return False
-        if 0 in cnt:
+    for j in range(9):
+        if arr[i][j] == num:
             return False
+    return True
 
+def col_check(j, num):
     # 세로
     for i in range(9):
-        cnt = [0] * 9
-        for j in range(9):
-            if cnt[sudoku[j][i]-1] == 0:
-                cnt[sudoku[j][i]-1] = 1
-            else:
-                return False
-        if 0 in cnt:
+        if arr[i][j] == num:
             return False
+    return True
 
+def square_check(i, j, num):
     # 3x3
-    for i in range(3):
-        for j in range(3):
-            cnt = [0] * 9
-            for a in range(3):
-                for b in range(3):
-                    if cnt[sudoku[i*3+a][j*3+b]-1] == 0:
-                        cnt[sudoku[i*3+a][j*3+b]-1] = 1
-                    else:
-                        return False
-            if 0 in cnt:
-                return False
 
-def input_sudoku(sudoku):
-    pass
+    # 0, 3, 6
+    r = i // 3 * 3
+    c = j // 3 * 3
+
+    for a in range(3):
+        for b in range(3):
+            if arr[r+a][c+b] == num:
+                return False
+    return True
+
+def dfs(sudoku):
+    if sudoku == len(zeros):
+        # for m in range(9):
+        #     for n in range(9):
+        print(arr)
+        anwser.append(arr)
+        return
+
+    x, y = zeros[sudoku]
+    for n in range(1, 10):
+        if row_check(x, n) and col_check(y, n) and square_check(x, y, n):
+            arr[x][y] = n
+            dfs(sudoku+1)
+            arr[x][y] = 0
 
 arr = [list(map(int, input())) for _ in range(9)]
+# print(arr)
+zeros = []
+# 0인 위치 다 넣어놓고 걔네만 넣어보면서 dfs
+for i in range(9):
+    for j in range(9):
+        if not arr[i][j]:
+            zeros.append((i, j))
+
+anwser = []
+dfs(0)
+print(anwser)
+for i in range(9):
+    print(*sorted(anwser)[0][i], sep='')
