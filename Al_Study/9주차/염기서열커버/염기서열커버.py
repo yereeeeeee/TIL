@@ -1,5 +1,7 @@
 n, m = map(int, input().split())
 arr = [list(map(str, input())) for _ in range(n)]
+# '.'의 개수가 적은 순서대로 정렬
+arr.sort(key=lambda x:x.count('.'))
 
 result = 0
 while arr:
