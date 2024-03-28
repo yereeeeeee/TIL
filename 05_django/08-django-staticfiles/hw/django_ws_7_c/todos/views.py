@@ -17,23 +17,11 @@ def create(request):
             todo = form.save()
             return redirect('todos:detail', todo.pk)
     else:
-        form = TodoForm()    
+        form = TodoForm()
     context = {
         'form': form
     }
     return render(request, 'todos/create.html', context)
-
-# def new_todo(request):
-#     form = TodoForm(request.POST)
-#     print(request.POST)
-#     if form.is_valid():
-#         todo = form.save()
-#         return redirect('todos:detail', todo.pk)
-#     context = {
-#         'form': form
-#     }
-#     return render(request, 'todos/create.html', context)
-
     
 def detail(request, todo_pk):
     todo = Todo.objects.get(pk=todo_pk)
@@ -45,15 +33,18 @@ def detail(request, todo_pk):
 
 def delete(request, todo_pk):
     todo = Todo.objects.get(pk=todo_pk)
-    todo.delete()
-    return redirect('todos:index')
+    if request.method == 'POST':
+        todo.delete()
+        return redirect('todos:index')
+    else:
+        return redirect('todos:detail', todo.pk)
 
 def update(request, todo_pk):
     todo = Todo.objects.get(pk=todo_pk)
     if request.method == 'POST':
         form = TodoForm(request.POST, instance=todo)
         if form.is_valid():
-            form.save()
+            todo = form.save()
             return redirect('todos:detail', todo.pk)
     else:
         form = TodoForm(instance=todo)
@@ -62,15 +53,3 @@ def update(request, todo_pk):
         'form': form
     }
     return render(request, 'todos/update.html', context)
-
-# def edit_todo(request, todo_pk):
-#     todo = Todo.objects.get(pk=todo_pk)
-#     form = TodoForm(request.POST, instance=todo)
-#     if form.is_valid():
-#         todo = form.save()
-#         return redirect('todos:detail', todo.pk)
-#     context = {
-#         'todo': todo,
-#         'form': form
-#     }
-#     return render(request, 'todos/update_todo.html', context)
