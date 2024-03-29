@@ -11,6 +11,7 @@ while arr:
     result += 1
 
     idx = []
+
     for i in range(len(arr)):
         # 염기서열의 길이만큼 확인
         cnt = 0
