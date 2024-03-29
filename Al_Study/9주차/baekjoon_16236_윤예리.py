@@ -7,9 +7,9 @@ dj = [0, -1, 1, 0]
 def bfs(i, j):
     global size
     global fish
+    global sec
 
     q = deque([[(i, j), 0]])
-    sec = 0
 
     while q:
         # print(q)
@@ -30,11 +30,12 @@ def bfs(i, j):
                     q.append([(ni, nj), now[1]+1])
                     arr[ni][nj] = -1
                 elif arr[ni][nj] < size:    # 잡아먹는 경우
-                    arr[ni][nj] = 9
                     fish += 1
+                    arr[ni][nj] = 9
+                    return
                 elif arr[ni][nj] == size:   # 같을 때
                     q.append([(ni, nj), now[1]+1])
-    return sec
+    return
 
 
 def cnt(baby):
@@ -54,13 +55,18 @@ n = int(input())
 arr = [list(map(int, input().split())) for _ in range(n)]
 size = 2
 fish = 0
+sec = 0
 
-while cnt(size):
-    for i in range(n):
-        for j in range(n):
-            if arr[i][j] == 9:
-                arr[i][j] = 0
-                bfs(i, j)
-                reset()
-else:
-    print(0)
+for i in range(n):
+    for j in range(n):
+        if arr[i][j] == 9:
+            arr[i][j] = 0
+            bfs(i, j)
+            print(sec)
+            print(arr)
+            print(fish, size)
+            reset()
+            print(arr)
+    else:
+        break
+print(sec)
