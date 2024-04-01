@@ -1,17 +1,20 @@
 from django.shortcuts import render
+from .models import Todo
 
 # Create your views here.
 def index(request):
-    work = request.GET.get('work')
+    # work = request.GET.get('work')
+    works = Todo.objects.all()
     context = {
-        'work': work
+        'works': works
     }
     return render(request, 'todos/index.html', context)
 
 def create_todo(request):
     return render(request, 'todos/create_todo.html')
 
-def detail(request, work):
+def detail(request, pk):
+    work = Todo.objects.get(pk=pk)
     context = {
         'work': work
     }

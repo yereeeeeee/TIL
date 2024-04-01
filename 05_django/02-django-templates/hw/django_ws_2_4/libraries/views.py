@@ -2,7 +2,7 @@ import requests
 from django.shortcuts import render
 
 API_URL = 'https://www.aladin.co.kr/ttb/api/ItemList.aspx'
-API_KEY = 'key'
+API_KEY = '#'
 
 # Create your views here.
 def index(request):
@@ -53,10 +53,10 @@ def bestseller(request):
     result = []
     for item in response['item']:
         info = {
-            'isbn': item['isbn'],
             'title': item['title'],
-            'pubDate': item['pubDate'],
             'author': item['author'],
+            'pubDate': item['pubDate'],
+            'isbn': item['isbn'],
             'salesPoint': item['salesPoint'],
             'bestDuration': item['bestDuration'],
         }

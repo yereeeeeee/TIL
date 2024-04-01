@@ -5,7 +5,7 @@ from django.contrib.auth import logout as auth_logout
 from .models import User
 
 # Create your views here.
-def index(request):
+def index(request): 
   user_list = User.objects.all()
   context = {
     'user_list': user_list,

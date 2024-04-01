@@ -11,6 +11,8 @@
     <p>제목 : {{ item.title }}</p>
     <p>저자: {{ item.author }}</p>
     <hr>
+    {% empty %}
+    <p>비었어용</p>
     {% endfor %}
 </body>
 </html>
