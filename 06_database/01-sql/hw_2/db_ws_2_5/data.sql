@@ -25,8 +25,21 @@ GROUP BY departmentId;
 -- 3
 SELECT 
   departments.name AS department,
-  age_group,
-  COUNT(employees) AS num_employees
+  CASE 
+    WHEN age < 30 THEN 'Under 30'
+    WHEN age BETWEEN 30 AND 40 THEN 'BETWEEN 30~40'
+    WHEN age > 40 THEN 'Over 40'
+    END AS age_group,
+  COUNT(*) AS num_employees
 FROM employees
 JOIN departments ON employees.departmentId = departments.id
-GROUP BY (
+GROUP BY 
+  departmentId, age_group;
+
+-- 4
+SELECT 
+  departments.name AS department,
+  (SUM(salary)-MAX(salary))/(COUNT(*)-1) AS avg_salary_excluding_highest
+FROM employees
+JOIN departments ON employees.departmentId = departments.id
+GROUP BY departmentId;
