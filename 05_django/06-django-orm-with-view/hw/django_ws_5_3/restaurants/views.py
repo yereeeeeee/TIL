@@ -3,7 +3,7 @@ from .models import Restaurant
 
 # Create your views here.
 def index(request): 
-    restaurants = Restaurant.objects.all()
+    restaurants = Restaurant.objects.all().order_by('name')
     context = {
         'restaurants': restaurants
     }
@@ -19,7 +19,7 @@ def create(request):
     restaurant.address = request.POST.get('address')
     restaurant.phone_number = request.POST.get('phone_number')
     restaurant.save()
-    return redirect('restaurants:index')
+    return redirect('restaurants:detail', restaurant.pk)
 
 def detail(request, restaurant_pk):
     restaurant = Restaurant.objects.get(pk=restaurant_pk)
@@ -42,7 +42,7 @@ def update(request, restaurant_pk):
     restaurant.address = request.POST.get('address')
     restaurant.phone_number = request.POST.get('phone_number')
     restaurant.save()
-    return redirect('restaurants:index')
+    return redirect('restaurants:detail', restaurant.pk)
 
 def delete(request, restaurant_pk):
     restaurant = Restaurant.objects.get(pk=restaurant_pk)

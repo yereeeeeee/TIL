@@ -6,8 +6,12 @@
   <ul>
     {% for todo in todo_list %}
       <li>
+        {% if todo.is_completed %}
+        <input type="checkbox" checked>
+        {% else %}
+        <input type="checkbox">
+        {% endif %}
         <a href="{% url "todos:detail" todo.pk %}">{{ todo.work }}</a>
-        <p>{{ todo.is_completed }}</p>
       </li>
     {% empty %}
       <li>아직 할 일이 없습니다.</li>

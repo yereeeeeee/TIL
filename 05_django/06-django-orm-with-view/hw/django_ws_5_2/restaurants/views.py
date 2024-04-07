@@ -20,3 +20,31 @@ def create(reqeust):
     restaurant.phone_number = reqeust.POST.get('phone_number')
     restaurant.save()
     return redirect('restaurants:index')
+
+def detail(request, pk):
+    restaurant = Restaurant.objects.get(pk=pk)
+    context = {
+        'restaurant': restaurant,
+    }
+    return render(request, 'restaurants/detail.html', context)
+
+def delete(request, pk):
+    restaurant = Restaurant.objects.get(pk=pk)
+    restaurant.delete()
+    return redirect('restaurants:index')
+
+def edit(request, pk):
+    restaurant = Restaurant.objects.get(pk=pk)
+    context = {
+        'restaurant': restaurant,
+    }
+    return render(request, 'restaurants/edit.html', context)
+
+def update(request, pk):
+    restaurant = Restaurant.objects.get(pk=pk)
+    restaurant.name = request.POST.get('name')
+    restaurant.description = request.POST.get('description')
+    restaurant.address = request.POST.get('address')
+    restaurant.phone_number = request.POST.get('phone_number')
+    restaurant.save()
+    return redirect('restaurants:index')

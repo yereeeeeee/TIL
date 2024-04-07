@@ -3,14 +3,21 @@
 {% block content %}
   <h1>맛집 리스트</h1>
   <a href="{% url 'restaurants:new' %}">[CREATE]</a>
-  <ul>
+  {% comment %} <ul> {% endcomment %}
     {% for restaurant in restaurants %}
-      <li>식당의 이름: {{ restaurant.name }}</li>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">식당의 이름: {{ restaurant.name }}</h5>
+        <p class="card-text">주소: {{ restaurant.address }}</p>
+        <a href="{% url 'restaurants:detail' restaurant.pk %}" class="btn btn-primary">상세 정보</a>
+      </div>
+    </div>
+      {% comment %} <li>식당의 이름: {{ restaurant.name }}</li>
       <ul>
         <li>주소: {{ restaurant.address }}</li>
       </ul>
       <a href="{% url 'restaurants:detail' restaurant.pk %}">[DETAIL]</a>
-      <hr>
+      <hr> {% endcomment %}
     {% endfor %}
-  </ul>
+  {% comment %} </ul> {% endcomment %}
 {% endblock content %}

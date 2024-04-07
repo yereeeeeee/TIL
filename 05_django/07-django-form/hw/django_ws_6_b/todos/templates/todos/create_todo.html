@@ -5,7 +5,7 @@
 
   <form action="{% url "todos:new_todo" %}" method="POST">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     {% comment %} <label for="work">work : </label>
     <input type="text" name="work" id="work"> <br>
     <label for="content">content : </label>

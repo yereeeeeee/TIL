@@ -3,7 +3,11 @@ from .models import Garage
 
 # Create your views here.
 def index(request):
-    return render(request, 'garages/index.html')
+    garages = Garage.objects.all()
+    context = {
+        'garages': garages,
+    }
+    return render(request, 'garages/index.html', context)
 
 def new(request):
     return render(request, 'garages/new.html')
@@ -17,4 +21,4 @@ def create(request):
 
     garage = Garage(location=location,capacity=capacity,is_parking_avaliable=is_parking_avaliable,opening_time=opening_time,closing_time=closing_time)
     garage.save()
-    return 
+    return redirect('garages:index')

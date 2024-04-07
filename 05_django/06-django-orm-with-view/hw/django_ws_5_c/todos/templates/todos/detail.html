@@ -9,6 +9,7 @@
   <p>일 자 : {{ todo.created_at }}</p>
   <p>완 료 : {{ todo.is_completed }}</p>
   <hr>
+  <a href="{% url "todos:update_todo" todo.pk %}">수정</a>
   <form action="{% url "todos:delete_todo" todo.pk %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="삭제">

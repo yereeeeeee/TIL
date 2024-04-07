@@ -9,6 +9,7 @@
       <ul>
         <li>주소 : {{ restaurant.address }}</li>
       </ul>
+      <a href="{% url "restaurants:detail" restaurant.pk %}">[DETAIL]</a>
       <hr>
     {% endfor %}
   </ul>

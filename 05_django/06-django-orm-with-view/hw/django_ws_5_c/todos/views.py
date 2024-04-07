@@ -32,3 +32,17 @@ def delete_todo(request, todo_pk):
     todo = Todo.objects.get(pk=todo_pk)
     todo.delete()
     return redirect('todos:index')
+
+def update_todo(request, pk):
+    todo = Todo.objects.get(pk=pk)
+    context = {
+        'todo': todo,
+    }
+    return render(request, 'todos/update_todo.html', context)
+
+def edit_todo(request, pk):
+    todo = Todo.objects.get(pk=pk)
+    todo.work = request.POST.get('work')
+    todo.content = request.POST.get('content')
+    todo.save()
+    return redirect('todos:detail', todo.pk)

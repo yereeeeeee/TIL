@@ -35,7 +35,6 @@ def new_todo(request):
     return render(request, 'todos/create_todo.html', context)
 
 
-
 def delete_todo(request, todo_pk):
     todo = Todo.objects.get(pk=todo_pk)
     todo.delete()
@@ -43,19 +42,21 @@ def delete_todo(request, todo_pk):
 
 def update_todo(request, todo_pk):
     todo = Todo.objects.get(pk=todo_pk)
+    form = TodoForm(instance=todo)
     context = {
-        'todo': todo
+        'todo': todo,
+        'form': form,
     }
     return render(request, 'todos/update_todo.html', context)
 
 def edit_todo(request, todo_pk):
     todo = Todo.objects.get(pk=todo_pk)
-
-    work = request.POST.get('work')
-    content = request.POST.get('content')
-
-    todo.work = work
-    todo.content = content
-    todo.save()
-
-    return redirect('todos:detail', todo.pk)
+    form = TodoForm(request.POST, instance=todo)
+    if form.is_valid():
+        form.save()
+        return redirect('todos:detail', todo_pk)
+    context = {
+        'todo': todo,
+        'form': form,
+    }
+    return render(request, 'todos/update_todo.html', context)

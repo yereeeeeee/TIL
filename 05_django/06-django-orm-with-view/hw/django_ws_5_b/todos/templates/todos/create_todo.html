@@ -2,15 +2,17 @@
 
 {% block content %}
   <h1>이 곳에서 할 일을 생성합니다.</h1>
-  {% comment %} <p>추후 기능 추가 예정</p> {% endcomment %}
 
-  <form action="{% url "todos:index" %}" method="POST">
+  <form action="{% url "todos:new_todo" %}" method="POST">
     {% csrf_token %}
-    <label for="work">work: </label>
-    <input type="text" name="work" id="work">
-    <br>
-    <label for="content">content: </label>
-    <textarea name="content" id="content "></textarea>
+    <div>
+      <label for="work">work: </label>
+      <input type="text" name="work">
+    </div>
+    <div>
+      <label for="content">content: </label>
+      <textarea name="content"></textarea>
+    </div>
     <input type="submit" value="제출">
   </form>
 {% endblock content %}

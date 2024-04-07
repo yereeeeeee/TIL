@@ -1,7 +1,23 @@
 from django import forms
+from .models import Memo
 
-class MemoForm(forms.Form):
-  memo = forms.TextField()
-  summary = forms.CharField(max_length=20)
-  created_at = forms.DateTimeField(auto_now_add=True)
-  updated_at = forms.DateTimeField(auto_now=True)
+class MemoForm(forms.ModelForm):
+    summary = forms.CharField(
+        widget= forms.TextInput(
+            attrs={
+                'placeholder': 'summary',
+            }
+        ),
+    )
+    memo = forms.CharField(
+        widget= forms.Textarea(
+            attrs={
+                'placeholder': 'memo',
+                'style': 'width: 50; height:5;',
+            }
+        ),
+    )
+
+    class Meta:
+        model = Memo
+        fields = '__all__'

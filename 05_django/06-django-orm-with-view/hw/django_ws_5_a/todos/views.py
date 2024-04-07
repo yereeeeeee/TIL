@@ -4,9 +4,9 @@ from .models import Todo
 # Create your views here.
 def index(request):
     # work = request.GET.get('work')
-    works = Todo.objects.all()
+    todos = Todo.objects.all()
     context = {
-        'works': works
+        'todos': todos
     }
     return render(request, 'todos/index.html', context)
 
@@ -14,8 +14,8 @@ def create_todo(request):
     return render(request, 'todos/create_todo.html')
 
 def detail(request, pk):
-    work = Todo.objects.get(pk=pk)
+    todo = Todo.objects.get(pk=pk)
     context = {
-        'work': work
+        'todo': todo
     }
     return render(request, 'todos/detail.html', context)
