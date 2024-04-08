@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('create/', views.create, name='create'),
     path('<int:diary_pk>/comments/', views.comments_create, name='comments_create'),
+    path('<int:pk>/comments_delete/', views.comments_delete, name='comments_delete'),
 ]

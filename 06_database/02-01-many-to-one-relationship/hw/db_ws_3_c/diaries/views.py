@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Diary
+from .models import Diary, Comment
 from .forms import DiaryForm, CommentForm
 
 # Create your views here.
@@ -8,7 +8,7 @@ def index(request):
     comment_form = CommentForm()
     context = {
         'diaries': diaries,
-        'comment_form': comment_form
+        'comment_form': comment_form,
     }
     return render(request, 'diaries/index.html', context)
 
@@ -33,4 +33,9 @@ def comments_create(request, diary_pk):
             comment = form.save(commit=False)
             comment.diary = diary
             comment.save()
+    return redirect('diaries:index')
+
+def comments_delete(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    comment.delete()
     return redirect('diaries:index')

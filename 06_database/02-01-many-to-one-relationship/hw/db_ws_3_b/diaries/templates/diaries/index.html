@@ -26,8 +26,9 @@
         <ul>
           <li>아직 댓글이 없습니다.</li>
         </ul>
-        <form action="">
-          <input type="text">
+        <form action="{% url "diaries:comments_create" diary.pk %}" method="POST">
+          {% csrf_token %}
+          {{comments_form.as_p}}
           <input type="submit" value="댓글 생성">
         </form>
       </section>

@@ -24,7 +24,16 @@
       
       <section class="diaries-comment">
         <ul>
-          <li>아직 댓글이 없습니다.</li>
+          {% for comment in diary.comment_set.all %}
+          <li>
+            {{comment.pk}} | {{comment.content}}
+            <form action="{% url "diaries:comments_delete" comment.pk %}">
+              <input type="submit" value="댓글 삭제">
+            </form>
+          </li>
+          {% empty %}
+          <li>첫 번째 댓글을 작성해보세요.</li>
+          {% endfor %}
         </ul>
         <form action="{% url "diaries:comments_create" diary.pk %}" method="POST">
           {% csrf_token %}
