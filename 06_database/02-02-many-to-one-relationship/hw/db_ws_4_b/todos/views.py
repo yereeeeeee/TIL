@@ -55,3 +55,10 @@ def update(request, todo_pk):
         'form': form
     }
     return render(request, 'todos/update.html', context)
+
+def my_page(request):
+    todos = request.user.todo_set.all()
+    context = {
+        'todos': todos,
+    }
+    return render(request, 'todos/my_page.html', context)

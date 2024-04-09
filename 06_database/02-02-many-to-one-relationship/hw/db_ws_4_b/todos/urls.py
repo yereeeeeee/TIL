@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:todo_pk>/', views.detail, name='detail'),
     path('<int:todo_pk>/delete/', views.delete, name='delete'),
     path('<int:todo_pk>/update/', views.update, name='update'),
+    path('my_page/', views.my_page, name='my_page'),
 ]

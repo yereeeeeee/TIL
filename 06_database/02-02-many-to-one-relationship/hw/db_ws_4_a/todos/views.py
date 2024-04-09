@@ -15,7 +15,9 @@ def create(request):
     if request.method == 'POST':
         form = TodoForm(request.POST)
         if form.is_valid():
-            todo = form.save()
+            todo = form.save(commit=False)
+            todo.user = request.user
+            todo.save()
             return redirect('todos:detail', todo.pk)
     else:
         form = TodoForm()

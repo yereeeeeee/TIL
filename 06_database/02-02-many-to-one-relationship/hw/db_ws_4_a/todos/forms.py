@@ -6,6 +6,6 @@ class TodoForm(forms.ModelForm):
 
     class Meta:
         model = Todo
-        fields = '__all__'
-        # exclude = ('is_completed', )
+        # fields = '__all__'
+        exclude = ('user', )
         widgets = {'is_completed': forms.HiddenInput()}
