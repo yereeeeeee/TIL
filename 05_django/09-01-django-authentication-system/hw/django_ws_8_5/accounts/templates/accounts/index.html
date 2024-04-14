@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <a href="{% url 'accounts:login' %}">[LOGIN]</a>
+  {% comment %} <a href="{% url 'accounts:login' %}">[LOGIN]</a>
   <form action="{% url 'accounts:logout' %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="LOGOUT">
-  </form>
+  </form> {% endcomment %}
   <h1>전체 유저 목록</h1>
   <ul>
     {% for person in persons %}
@@ -13,10 +13,12 @@
       <ul>
         <li>{{person.score}}</li>
       </ul>
+      {% if person == user %}
       <form action="{% url 'accounts:increase_score' person.pk %}" method="POST">
         {% csrf_token %}
-        <input type="submit" value="+">
+        <input type="submit" value="Increase Score">
       </form>
+      {% endif %}
       <hr>
     {% endfor %}
   </ul>

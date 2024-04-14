@@ -7,6 +7,10 @@
 </head>
 <body>
   <h3>hello, {{ user.username }}</h3>
+  <form action="{% url "accounts:my_score" %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Increse My Score">
+  </form>
   {% block content %}
   {% endblock content %}
 </body>

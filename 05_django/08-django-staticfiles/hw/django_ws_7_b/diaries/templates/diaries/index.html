@@ -8,12 +8,13 @@
       <li>
         <p>작성일 : {{ diary.created_at }}</p>
         {% if diary.picture %}
-          <img src="{{ diary.picture.url }}" alt="img">
+        <img src="{{ diary.picture.url }}" alt="">
         {% else %}
-          <p>이미지가 없습니다.</p>
+        <p>이미지가 없습니다.</p>
         {% endif %}
         <p>{{ diary.content }}</p>
       </li>
+      <hr>
     {% empty %}
       <li>아직 작성한 일기가 없습니다.</li>
     {% endfor %}

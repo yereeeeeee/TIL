@@ -1,29 +1,30 @@
 import sys
 input = sys.stdin.readline
 from collections import deque
-from copy import deepcopy
-sys.setrecursionlimit(15000)
-
-def bfs():
-    visited = set()
-    q = deque([])
-    q.append([arr, 0])
-
-    while q:
-        now_lst, cnt = q.popleft()
-
-        if now_lst == answer:
-            return cnt
-
-        for i in range(n-k+1):
-            origin =
-
-    else:
-        return -1
 
 n, k = map(int, input().split())
-arr = list(map(int, input().split()))
-answer = sorted(arr)
-print(bfs())
+arr = list(input().split())
+visited = set(''.join(arr))
 
+target = sorted(arr)
+answer = -1
+
+q = deque([arr, 0])
+
+while q:
+    lst, cnt = q.popleft()
+    if lst == target:
+        answer = cnt
+        break
+
+    for i in range(n-k+1):
+        k_lst = lst[i:i+k]
+        k_lst.reverse()
+        lst2 = lst[:i] + k_lst + lst[i+k:]
+        str_ = ''.join(lst2)
+        if str_ not in visited:
+            q.append([lst2, cnt+1])
+            visited.add(str_)
+
+print(answer)
 

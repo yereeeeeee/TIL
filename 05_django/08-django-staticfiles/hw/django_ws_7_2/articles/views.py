@@ -29,3 +29,22 @@ def create(request):
         'form': form
     }
     return render(request, 'articles/create.html', context)
+
+def update(request, pk):
+    article = Article.objects.get(pk=pk)
+    if request.method=='POST':
+        form = ArticleForm(request.POST, request.FILES, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect('articles:detail', pk)
+    else:
+        form = ArticleForm(instance=article)
+    context = {
+        'form': form,
+    }
+    return render(request, 'articles/update.html', context)
+
+def delete(request, pk):
+    article = Article.objects.get(pk=pk)
+    article.delete()
+    return redirect('articles:index')

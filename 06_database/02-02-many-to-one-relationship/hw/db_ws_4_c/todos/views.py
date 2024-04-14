@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Todo
 from .forms import TodoForm
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def index(request):
@@ -10,6 +12,7 @@ def index(request):
     }
     return render(request, 'todos/index.html', context)
 
+@login_required
 def create(request):
     if request.method == 'POST':
         form = TodoForm(request.POST)
@@ -32,29 +35,36 @@ def detail(request, todo_pk):
     }
     return render(request, 'todos/detail.html', context)
 
-
+@login_required
 def delete(request, todo_pk):
     todo = Todo.objects.get(pk=todo_pk)
-    if request.method == 'POST':
-        todo.delete()
-        return redirect('todos:index')
+    if request.user == todo.user:
+        if request.method == 'POST':
+            todo.delete()
+            return redirect('todos:index')
+        else:
+            return redirect('todos:detail', todo.pk)
     else:
         return redirect('todos:detail', todo.pk)
 
+@login_required
 def update(request, todo_pk):
     todo = Todo.objects.get(pk=todo_pk)
-    if request.method == 'POST':
-        form = TodoForm(request.POST, instance=todo)
-        if form.is_valid():
-            todo = form.save()
-            return redirect('todos:detail', todo.pk)
+    if request.user == todo.user:
+        if request.method == 'POST':
+            form = TodoForm(request.POST, instance=todo)
+            if form.is_valid():
+                todo = form.save()
+                return redirect('todos:detail', todo.pk)
+        else:
+            form = TodoForm(instance=todo)
+        context = {
+            'todo': todo,
+            'form': form
+        }
+        return render(request, 'todos/update.html', context)
     else:
-        form = TodoForm(instance=todo)
-    context = {
-        'todo': todo,
-        'form': form
-    }
-    return render(request, 'todos/update.html', context)
+        return redirect('todos:detail', todo.pk)
 
 def my_page(request):
     todo_list = request.user.todo_set.all()

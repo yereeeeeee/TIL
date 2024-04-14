@@ -4,7 +4,7 @@ from .forms import ArticleForm
 
 # Create your views here.
 def index(request):
-    articles = Article.objects.all()
+    articles = Article.objects.filter(is_public=True)
     context = {
         'articles': articles
     }

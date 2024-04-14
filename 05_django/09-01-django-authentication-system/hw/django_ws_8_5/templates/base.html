@@ -6,11 +6,20 @@
   <title>Document</title>
 </head>
 <body>
+  {% if user.username %}
   <h3>hello, {{ user.username }}</h3>
+  <form action="{% url "accounts:logout" %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="LOGOUT">
+  </form>
   <form action="{% url 'accounts:my_score' %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="Increase My Score">
   </form>
+  {% else %}
+  <h3>로그인 해 주세요.</h3>
+  <a href="{% url "accounts:login" %}">[LOGIN]</a>
+  {% endif %}
   {% block content %}
   {% endblock content %}
 </body>

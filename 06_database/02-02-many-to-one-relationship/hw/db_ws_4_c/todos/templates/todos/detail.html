@@ -10,9 +10,12 @@
   <p>일 자 : {{ todo.created_at }}</p>
   <p>완 료 : {{ todo.is_completed }}</p>
   <hr>
+  {% if request.user == todo.user %}
+  <a href="{% url "todos:my_page" %}">[내 할 일 목록으로 돌아가기]</a>
   <a href="{% url "todos:update" todo.pk %}">수정</a>
   <form action="{% url "todos:delete" todo.pk %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="삭제">
   </form>
+  {% endif %}
 {% endblock content %}

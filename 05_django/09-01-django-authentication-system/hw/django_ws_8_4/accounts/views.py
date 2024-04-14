@@ -34,8 +34,17 @@ def logout(request):
 def increase_score(request, user_pk):
     if request.method == 'POST':
         user = User.objects.get(pk=user_pk)
+        if request.user == user:
+            user.score += 100
+            user.save()
+            return redirect('accounts:index')
+    
+    return redirect('accounts:index')
+
+def my_score(request):
+    if request.method=='POST':
+        user = User.objects.get(pk=request.user.pk)
         user.score += 100
         user.save()
         return redirect('accounts:index')
-    
     return redirect('accounts:index')

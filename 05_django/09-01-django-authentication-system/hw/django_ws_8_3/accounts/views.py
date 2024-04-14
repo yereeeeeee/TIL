@@ -6,7 +6,7 @@ from .models import User
 
 # Create your views here.
 def index(request):
-    persons = User.objects.all()
+    persons = User.objects.all().order_by('-score')
     context = {
         'persons': persons
     }
@@ -28,3 +28,10 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect('accounts:index')
+
+def score(request, pk):
+    person = User.objects.get(pk=pk)
+    if request.method=='POST':
+        person.score += 100
+        person.save()
+        return redirect('accounts:index')

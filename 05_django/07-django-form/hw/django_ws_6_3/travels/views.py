@@ -35,3 +35,22 @@ def detail(request,pk):
     }
     return render(request,'travels/detail.html',context)
 
+def delete(request, pk):
+    travel = Travel.objects.get(pk=pk)
+    travel.delete()
+    return redirect('travels:index')
+
+def update(request, pk):
+    travel = Travel.objects.get(pk=pk)
+    if request.method=="POST":
+        form = TravelForm(request.POST, instance=travel)
+        if form.is_valid():
+            form.save()
+            return redirect('travels:detail', pk)
+    else:
+        form = TravelForm(instance=travel)
+    context = {
+        'travel':travel,
+        'form':form,
+    }
+    return render(request, 'travels/update.html', context)

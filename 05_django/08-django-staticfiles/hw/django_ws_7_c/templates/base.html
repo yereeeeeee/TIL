@@ -1,19 +1,14 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>할 일 목록 관리 프로젝트</title>
-  <style>
-    .logo-img {
-      width: 30px;
-    }
-  </style>
 </head>
 <body>
-  <a href="{% url "todos:index" %}"><img class='logo-img' src="{% static "logo.png" %}" alt="logo"></a> | 
   {% comment %} <a href="{% url "todos:index" %}">[MAIN]</a> |  {% endcomment %}
+  <a href="{% url "todos:index" %}"><img src="{% static "test.jpg" %}" alt="logo" style="width:50px"></a>
   <a href="{% url "todos:create" %}">[CREATE]</a>
   <a href="{% url "accounts:login" %}">[LOGIN]</a>
   <a href="{% url "diaries:index" %}">[DIARY]</a>

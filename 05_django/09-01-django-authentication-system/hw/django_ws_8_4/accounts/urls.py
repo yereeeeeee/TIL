@@ -9,5 +9,6 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('<int:user_pk>/score/', views.increase_score, name='increase_score'),
+    path('my_score/', views.my_score, name='my_score'),
 
 ]
