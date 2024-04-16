@@ -26,7 +26,7 @@ for _ in range(e):
     a, b, c = map(int, input().split())
     graph.append([a, b, c])
 
-graph.sort()
+graph.sort(key=lambda x:x[2])
 for i in range(e):
     a, b, c = graph[i]
     if find(a) != find(b):

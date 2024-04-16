@@ -1,11 +1,6 @@
 import sys
 input = sys.stdin.readline
 
-def check(x, y):
-    for a in range(1, n-x):
-        pass
-
-
 def dfs():
     pass
 
