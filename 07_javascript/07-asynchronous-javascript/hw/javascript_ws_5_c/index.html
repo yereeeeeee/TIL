@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .photos img {
+      width: 500px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Mars Rover Photos - Step 3</h1>
+  <form class="search-form">
+    <div>
+      <select class="select-rover">
+        <option value="" selected disabled hidden>--- Select Rover name ---</option>
+        <option value="Curiosity">Curiosity</option>
+        <option value="Opportunity">Opportunity</option>
+        <option value="Spirit">Spirit</option>
+      </select>
+    </div>
+    <label for="input-sol">화성일 : </label>
+    <input type="number" class="input-sol" id="input-sol" min="0" max="4000">
+    <input type="submit" value="Search">
+  </form>
+  <div class="photos"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const API_URL = 'https://api.nasa.gov/mars-photos/api/v1/rovers/'
+    const API_KEY = '###'
+    const photoContainer = document.querySelector('.photos')
+    const searchForm = document.querySelector('.search-form')
+    
+    const getMarsPhotos = function (solValue) {
+      photoContainer.textContent = null
+
+      const selectRover = document.querySelector('.select-rover')
+      const URL_2 = API_URL + `${selectRover.value}/photos/`
+      
+      axios({
+        method: 'get',
+        url: URL_2,
+        params: {
+          sol: solValue,
+          api_key: API_KEY,
+          camera: 'navcam',
+        },
+      })
+        .then((response) => {
+          if (response.data.photos.length === 0) {
+            photoContainer.textContent = `로버 ${selectRover.value} 해당 화성일에 찍은 사진이 없습니다.`
+          } else {
+            let max_length = response.data.photos.length
+            if (response.data.photos.length > 3) {
+              max_length = 3
+            }
+            for (let i=0; i<max_length; i++){
+              const photo = response.data.photos[i]
+              const imgElement = document.createElement('img')
+              imgElement.src = photo.img_src
+              const earthDate = response.data.photos[i].earth_date
+              const datePtag = document.createElement('p')
+              datePtag.textContent = `지구 시간: ${earthDate}`
+              photoContainer.appendChild(datePtag)
+              photoContainer.appendChild(imgElement)
+              photoContainer.appendChild(document.createElement('hr'))
+            }
+          }
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    }
+
+    searchForm.addEventListener('submit', function (event) {
+      event.preventDefault()
+      const solValue = document.querySelector('.input-sol').value
+      getMarsPhotos(solValue)
+    })
+  </script>
+</body>
+
+</html>
