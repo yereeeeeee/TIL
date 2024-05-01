@@ -21,7 +21,8 @@ import git
 ## 완성한 파일을 add commit push 한다.
 
 today = int(input('몇일차인지 적어주세요 : '))
-user_id = input('깃랩id를 적어주세요 : ')
+# user_id = input('깃랩id를 적어주세요 : ')
+user_id = 'yoonr72'
 subject = input('무슨과목인지 적어주세요(소문자) (예시 : web, python...) : ')
 user_dir = input("어떤 폴더에서 작업할지 적어주세요 (폴더경로복사) : ")
 print('클론할꺼면 1, add commit push 할거면 2를 입력해주세요')
