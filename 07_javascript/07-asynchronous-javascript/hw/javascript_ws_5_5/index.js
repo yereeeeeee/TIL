@@ -14,7 +14,7 @@ const fetchAlbums = function(page=1, limit=10) {
       page: page,
       limit: limit,
       artist: keyword,
-      api_key: 'dd21427ff35589664dffbaa0749eaf4d',
+      api_key: '###',
       format: 'json',
     },
   })
