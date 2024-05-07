@@ -1,12 +1,17 @@
-def cnt(x):
+import math
+import sys
+input = sys.stdin.readline
+from collections import deque
 
-
-score = []
 n = int(input())
-for _ in range(n):
-    score.append(int(input()))
+arr = sorted([int(input()) for _ in range(n)])
+p = math.floor(n*0.15+0.5)
+arr = deque(arr)
 
-score.pop(score.index(max(score)))
-score.pop(score.index(min(score)))
+for _ in range(p):
+    arr.pop()
+    arr.popleft()
 
-print(score)
+if not arr:
+    exit(print(0))
+print(math.floor((sum(arr)/len(arr))+0.5))
