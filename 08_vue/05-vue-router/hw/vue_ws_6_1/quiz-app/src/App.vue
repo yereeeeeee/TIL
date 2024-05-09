@@ -15,14 +15,13 @@ import { RouterLink, RouterView } from 'vue-router'
       </div> 
       
       <div class="header-home-button-wrap">
-        <button class="home-button">Home</button>
+        <button class="home-button">Home |</button>
       </div>
     </div>
   </header>
 
-
-
-  <!-- <RouterView /> -->
+  <RouterView />
+  <br><br>
 </template>
 
 <style scoped>
