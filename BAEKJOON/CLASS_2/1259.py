@@ -1,7 +1,15 @@
-k = True
-while k:
-    i = list(input())
+import sys
+input = sys.stdin.readline
 
-    if i == 0:
-        k = False
+while True:
+    n = input().strip()
+    if int(n) == 0:
+        exit()
+
+    for i in range(len(n)//2):
+        # print(i)
+        if n[i] != n[-(i+1)]:
+            print('no')
+            break
     else:
+        print('yes')
