@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .is-completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Todo Application</h1>
+
+    <p>Completed Count: {{ completedCount }}</p>
+    
+    <select v-model="selected">
+      <option value="all">전체 todo</option>
+      <option value="complete">완료된 todo</option>
+      <option value="">미완료된 todo</option>
+    </select>
+    <form @submit.prevent="addTodo">
+      <input type="text" v-model="newTodo">
+      <input type="submit" value="Add">
+    </form>
+
+    <ul>
+      <li v-for="todo in selectedTodo" :key="todo.id">
+        <input type="checkbox" v-model="todo.isCompleted">
+        <span :class="{ 'is-completed': todo.isCompleted }">{{ todo.text }}</span>
+        <button @click="deleteTodo(todo.id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref, watch, computed } = Vue
+
+    const app = createApp({
+      setup() {
+        const todos = ref([])
+        const newTodo = ref('')
+
+        const addTodo = function () {
+          if (newTodo.value.trim() !== '') {
+            const todoObj = {
+              id: Date.now(),
+              text: newTodo.value,
+              isCompleted: false
+            }
+            todos.value.push(todoObj)
+            newTodo.value = ''
+          }
+        }
+
+        const deleteTodo = function (todoId) {
+          const index = todos.value.findIndex(todo => todo.id === todoId)
+          if (index !== -1) {
+            todos.value.splice(index, 1)
+          }
+        }
+
+        const completedCount = ref(0)
+        const completedWatch = watch(todos.value, (newCount, oldCount) => {
+          let tmp = 0
+          newCount.forEach(todo => {
+            if (todo.isCompleted === true) {
+              tmp += 1
+            }
+          });
+          completedCount.value = tmp
+        })
+        const selected = ref('')
+        const selectedTodo = computed(() => {
+          if (selected.value === '') {
+            return todos.value.filter((todo) => !todo.isCompleted)
+          } else if (selected.value === 'complete') {
+            return todos.value.filter((todo) => todo.isCompleted)
+          } else {
+            return todos.value
+          }
+        }) 
+
+        return { todos, newTodo, completedCount, completedWatch, addTodo, deleteTodo, selectedTodo, selected }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
