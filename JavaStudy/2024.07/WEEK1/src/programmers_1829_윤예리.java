@@ -1,77 +1,61 @@
 import java.util.*;
 
-public class programmers_1829_윤예리 {
-    public static void main(String[] args) {
+class Point {
+    int x;
+    int y;
+
+    Point(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
+}
 
-    class Pos {
-        int x;
-        int y;
+class programmers_1829_윤예리 {
 
-        public Pos(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
-    static int[][] visited;
-    static int[] dx = {-1, 1, 0, 0};
-    static int[] dy = {0, 0, -1, 1};
-    static int num = 1;
-    static int r, c;
-    static int cnt, max;
+    int[] dx = {-1, 0, 1, 0};
+    int[] dy = {0, 1, 0, -1};
+    boolean[][] visited;
 
     public int[] solution(int m, int n, int[][] picture) {
-        int numberOfArea = 0;
-        int maxSizeOfOneArea = 0;
-        r = m; c = n;
+        int numberOfArea = 0; //영역 개수
+        int maxSizeOfOneArea = 0; //가장 큰 영역
+        visited = new boolean[m][n];
 
-        visited = new int[m][n];
-        boolean flag = false;
-        while (true) {
-            if (flag) break;
-
-            flag = true;
-            for (int i = 0; i < r; i++) {
-                for (int j = 0; j < c; j++) {
-                    if (picture[i][j] == num && visited[i][j] != 0) {
-                        max = Math.max(max, bfs(picture, i, j));
-                        cnt += 1;
-                        flag = false;
-                    }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (picture[i][j] != 0 && !visited[i][j]) {
+                    maxSizeOfOneArea = Math.max(maxSizeOfOneArea, bfs(m, n, i, j, picture));
+                    numberOfArea++;
                 }
             }
-
-            num += 1;
         }
 
-        int[] answer = new int[2];
-        answer[0] = cnt;
-        answer[1] = max;
-        return answer;
+        return new int[]{numberOfArea, maxSizeOfOneArea};
     }
 
-    int bfs(int[][] arr, int x, int y) {
-        ArrayDeque<Pos> dq = new ArrayDeque<>();
-        dq.add(new Pos(x, y));
-        int value = 0;
+    public int bfs(int m, int n, int x, int y, int[][] picture) {
+        int range = 1;
+        int target = picture[x][y];
+        Queue<Point> q = new LinkedList<>();
 
-        while (!dq.isEmpty()) {
-            Pos here = dq.pollFirst();
-            visited[here.x][here.y] = 1;
+        visited[x][y] = true;
+        q.offer(new Point(x, y));
+
+        while (!q.isEmpty()) {
+            Point p = q.poll();
 
             for (int i = 0; i < 4; i++) {
-                int nx = here.x + dx[i];
-                int ny = here.y + dy[i];
+                int nx = p.x + dx[i];
+                int ny = p.y + dy[i];
 
-                if (0<= nx && nx < r && 0 <= ny && ny < c && arr[nx][ny] == num) {
-                    visited[nx][ny] = visited[x][y] + 1;
-                    value = Math.max(visited[nx][ny], value);
-                    dq.add(new Pos(nx, ny));
+                if (nx >= 0 && nx < m && ny >= 0 && ny < n && picture[nx][ny] == target && !visited[nx][ny]) {
+                    q.offer(new Point(nx, ny));
+                    visited[nx][ny] = true;
+                    range++;
                 }
             }
         }
 
-        return value;
+        return range;
     }
 }
