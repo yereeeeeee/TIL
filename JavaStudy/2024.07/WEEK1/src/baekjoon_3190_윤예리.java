@@ -53,7 +53,7 @@ public class baekjoon_3190_윤예리 {
         int ny = y + dy[d];
 
         if (dir.containsKey(time)) {
-            if (dir.get(time) == 'L') d = (d-1) % 4;
+            if (dir.get(time) == 'L') d = (d+3) % 4;
             else d = (d+1) % 4;
         }
 
@@ -66,7 +66,7 @@ public class baekjoon_3190_윤예리 {
 
             else if (arr[nx][ny] == 2) {
                 System.out.println(time);
-                return;
+                System.exit(0);
             }
 
             else {
@@ -83,7 +83,7 @@ public class baekjoon_3190_윤예리 {
 
         else {
             System.out.println(time);
-            return;
+            System.exit(0);
         }
     }
 }
