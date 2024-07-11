@@ -1,4 +1,3 @@
-# from collections import deque
 from heapq import *
 
 import sys
@@ -14,16 +13,15 @@ for _ in range(n):
 start, end = heappop(hq)
 result = 0
 while hq:
-    print(hq)
     new_start, new_end = heappop(hq)
 
-    if start < new_start and end <= new_end:
-        end = new_end
-    elif new_start > end:
+    if end < new_start:
         result += end-start
         start = new_start
         end = new_end
-    else:
-        print(start, end)
+    elif start < new_start and end <= new_end:
+        end = new_end
 
+result += end-start
 print(result)
+# print(start, end)
