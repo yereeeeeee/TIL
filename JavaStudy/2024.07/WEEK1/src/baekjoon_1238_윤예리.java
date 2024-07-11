@@ -20,6 +20,7 @@ class Node implements Comparable<Node>{
 public class baekjoon_1238_윤예리 {
     static int n, m, x;
     static ArrayList<Node>[] graph, reGraph;
+    static int[] dist, backDist;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -29,7 +30,23 @@ public class baekjoon_1238_윤예리 {
         m = Integer.parseInt(st.nextToken());
         x = Integer.parseInt(st.nextToken());
 
+        graph = new ArrayList[n+1];
+        reGraph = new ArrayList[n+1];
 
+        for (int i = 1; i < m+1; i++) {
+            st = new StringTokenizer(br.readLine());
+
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            int cost = Integer.parseInt(st.nextToken());
+
+            graph[start].add(new Node(end, cost));
+            reGraph[end].add(new Node(start, cost));
+        }
+
+    }
+
+    static void solution() {
 
     }
 }

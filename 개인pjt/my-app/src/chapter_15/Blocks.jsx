@@ -1,4 +1,5 @@
 import styled from "styled-components";
+// import Block from "../chapter_15/Block"
 
 const Wrapper = styled.div`
   padding: 1rem;
@@ -8,16 +9,16 @@ const Wrapper = styled.div`
   background-color: lightgrey;
 `
 
-const Block = styled.div`
-  padding: ${(props) => props.padding};
-  border: 1px solid black;
-  border-radius: 1rem;
-  background-color: ${(props) => props.backgroundColor};
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-`
+// const Block = styled.div`
+//   padding: ${(props) => props.padding};
+//   border: 1px solid black;
+//   border-radius: 1rem;
+//   background-color: ${(props) => props.backgroundColor};
+//   color: white;
+//   font-size: 2rem;
+//   font-weight: bold;
+//   text-align: center;
+// `
 
 const blockItems = [
   {
