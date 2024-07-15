@@ -13,26 +13,12 @@ class Pos {
     }
 }
 
-//class Cand implements Comparable {
-//    int[] list;
-//
-//    public Cand(int[] list) {
-//        this.list = list;
-//    }
-//
-//    @Override
-//    public int compareTo(int[] o) {
-//        return ((o1, o2) -> (o1[0] - o2[0]));
-//    }
-//}
-
 public class baekjoon_16236_윤예리 {
     static int n;
     static int[][] arr;
     static int[] dx = {-1, 0, 1, 0};
     static int[] dy = {0, 1, 0, -1};
-    static int fx, fy;
-    static ArrayList<int[]> cand = new ArrayList<>();
+    static Pos shark;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -45,50 +31,77 @@ public class baekjoon_16236_윤예리 {
             for (int j = 0; j < n; j++) {
                 arr[i][j] = Integer.parseInt(st.nextToken());
                 if (arr[i][j] == 9) {
-                    fx = i; fy = j;
+                    shark = new Pos(i, j);
+                    arr[i][j] = 0;
                 }
             }
         }
 
-        bfs();
-        Arrays.sort(cand, (o1, o2) -> {
-            return o1[0] - o2[0], o1[1];
-        });
+        int answer = 0;
+        int sharkSize = 2;
+        int eatCnt = 0;
 
-    }
+        while (true) {
+            Queue<Pos> q = new LinkedList<>();
 
-    static void bfs() {
-        int[][] visited = new int[n][n];
-        Deque<Pos> q = new LinkedList<>();
-        q.offer(new Pos(fx, fy));
+            int[][] visited = new int[n][n];
 
+            q.offer(new Pos(shark.x, shark.y));
 
-        visited[fx][fy] = 1;
+            int x = Integer.MAX_VALUE;
+            int y = Integer.MAX_VALUE;
+            int value = Integer.MAX_VALUE;
 
-        while (!q.isEmpty()) {
-            Pos now = q.pollLast();
-            int x = now.x;
-            int y = now.y;
+            while (!q.isEmpty()) {
+                Pos cur = q.poll();
 
-            for (int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
+                for (int d = 0; d < 4; d++) {
+                    int nx = cur.x + dx[d];
+                    int ny = cur.y + dy[d];
 
-                if (0 <= nx && nx < n && 0 <= ny && ny < n && visited[nx][ny] != 0) {
-                    if (arr[x][y] > arr[nx][ny] && arr[nx][ny] != 0) {
-                        visited[nx][ny] = visited[x][y] + 1;
-                        cand.add(new int[]{visited[nx][ny]-1, nx, ny});
+                    if (nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+                    if (arr[nx][ny] > sharkSize) continue; // 큰 물고기 못 머거 ㅠ
+                    if (visited[nx][ny]!=0) continue;
+
+                    visited[nx][ny] = visited[cur.x][cur.y] + 1; // 방문처리
+
+                    if (arr[nx][ny] != 0 && arr[nx][ny] < sharkSize) {
+                        if (value > visited[nx][ny]) { // 가장 가까운 물고기 먹기
+                            value = visited[nx][ny];
+                            x = nx;
+                            y = ny;
+                        }
+                        else if (value == visited[nx][ny]) { // 거리가 같다?
+                            if (nx == x) {
+                                if (y > ny) { // 왼쪽 먹기
+                                    x = nx; y = ny;
+                                }
+                            }
+                            else if (nx < x) { // 위 먹기
+                                x = nx; y = ny;
+                            }
+                        }
                     }
-                    else if (arr[x][y] == arr[nx][ny]) {
-                        visited[nx][ny] = visited[x][y] + 1;
-                        q.offer(new Pos(nx, ny));
-                    }
-                    else if (arr[nx][ny] == 0) {
-                        visited[nx][ny] = visited[x][y] + 1;
-                        q.offer(new Pos(nx, ny));
-                    }
+
+                    q.add(new Pos(nx, ny));
+
                 }
             }
+
+            if (x== Integer.MAX_VALUE && y == Integer.MAX_VALUE) break;
+
+            answer += visited[x][y];
+            arr[x][y] = 0;
+            shark.x = x; shark.y = y;
+            eatCnt += 1;
+
+            if (eatCnt == sharkSize) {
+                sharkSize += 1;
+                eatCnt = 0;
+            }
         }
+
+        System.out.println(answer);
+
     }
 }

@@ -6,13 +6,15 @@ dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
 
 def goEat(i, j):
-    global answer
-
     q = deque([(i, j)])
+    visited = [[0] * m for _ in range(n)]
     visited[i][j] = 1
-    # 윤예리 바봉봉쇼콜라라랜드라이클리닝장고릴라조기린맥주량이어떻게되요단강강술래리페이지미펠런데빌런
+
     while q:
         x, y = q.popleft()
+
+        if arr[x][y] == 'F':
+            tmp1.append((x, y, visited[x][y]))
 
         for d in range(4):
             nx, ny = x + dx[d], y + dy[d]
@@ -21,6 +23,8 @@ def goEat(i, j):
                 visited[nx][ny] = visited[x][y] + 1
                 q.append((nx, ny))
 
+    if not tmp1:
+        return -1
     return
 
 def goHome(i, j):
@@ -33,10 +37,8 @@ def goHome(i, j):
     while q:
         x, y = q.popleft()
 
-        if arr[x][y] == 'H':
-            answer += (visited[x][y] - 1)
-            print(visited)
-            return
+        if arr[x][y] == 'F':
+            tmp2.append((i, j, visited[x][y]))
 
         for d in range(4):
             nx, ny = x + dx[d], y + dy[d]
@@ -45,20 +47,33 @@ def goHome(i, j):
                 visited[nx][ny] = visited[x][y] + 1
                 q.append((nx, ny))
 
-    return -1
+    if not tmp2:
+        return -1
+    return
 
 
 n, m = map(int, input().split())
 arr = [list(input()) for _ in range(n)]
-answer = 0
-visited = [[0] * m for _ in range(n)]
+tmp1 = []
+tmp2 = []
 
+cnt = 0
 for i in range(n):
     for j in range(m):
         if arr[i][j] == 'S':
-            goEat(i, j)
-        
-        if arr[i][j] == 'F':
-            goHome(i, j)
+            if goEat(i, j) == -1: exit(print(-1))
 
-            break
+        if arr[i][j] == 'H':
+            if goHome(i, j) == -1: exit(print(-1))
+
+        if arr[i][j] == 'F':
+            cnt += 1
+
+tmp1.sort()
+tmp2.sort()
+
+answer = float('inf')
+for i in range(cnt):
+    answer = min(answer, tmp1[i][2] + tmp2[i][2])
+
+print(answer)
