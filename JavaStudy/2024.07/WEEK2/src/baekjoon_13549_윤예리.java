@@ -17,7 +17,6 @@ public class baekjoon_13549_윤예리 {
             if (k==0) System.out.println(0);
             else System.out.println(solution(n, k) + 1);
         } else System.out.println(solution(n, k));
-
     }
 
 
