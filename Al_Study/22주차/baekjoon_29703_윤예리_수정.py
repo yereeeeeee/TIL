@@ -23,8 +23,7 @@ def goEat(i, j):
                 visited[nx][ny] = visited[x][y] + 1
                 q.append((nx, ny))
 
-    if not tmp1:
-        return -1
+    if not tmp1: return -1
     return
 
 def goHome(i, j):
@@ -47,8 +46,7 @@ def goHome(i, j):
                 visited[nx][ny] = visited[x][y] + 1
                 q.append((nx, ny))
 
-    if not tmp2:
-        return -1
+    if not tmp2: return -1
     return
 
 
