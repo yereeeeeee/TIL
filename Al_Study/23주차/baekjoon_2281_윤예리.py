@@ -5,15 +5,11 @@ from collections import deque
 n, m = map(int, input().split())
 arr =[int(input()) for _ in range(n)]
 
-notes = [m] * (n+1)
-while arr:
-    x = arr.pop(0)
-    print(arr, notes, x)
+# dp[i][j] = i 번째 글자를 j번째 줄에 넣었을 때 값
 
-    for i in range(n+1):
-        if notes[i] < x:
-            continue
-        else:
-            notes[i] -= x
-            notes[i] = max(notes[i] - 1, 0)
-            break
+dp = [[0] * m for _ in range(n)]
+dp[0][0] = arr[0]
+
+for i in range(1, n):
+    for j in range(m):
+        
