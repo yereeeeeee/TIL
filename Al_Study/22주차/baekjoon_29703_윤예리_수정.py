@@ -37,7 +37,7 @@ def goHome(i, j):
         x, y = q.popleft()
 
         if arr[x][y] == 'F':
-            tmp2.append((i, j, visited[x][y]))
+            tmp2.append((x, y, visited[x][y]))
 
         for d in range(4):
             nx, ny = x + dx[d], y + dy[d]
@@ -67,11 +67,10 @@ for i in range(n):
         if arr[i][j] == 'F':
             cnt += 1
 
-tmp1.sort()
-tmp2.sort()
-
 answer = float('inf')
 for i in range(cnt):
-    answer = min(answer, tmp1[i][2] + tmp2[i][2])
+    for j in range(cnt):
+        if tmp1[i][0] == tmp2[i][0] and tmp1[i][1] == tmp2[i][1]:
+            answer = min(answer, tmp1[i][2] + tmp2[i][2])
 
 print(answer)
