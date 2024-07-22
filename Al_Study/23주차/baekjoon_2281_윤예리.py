@@ -33,3 +33,4 @@ def solution(x):
     return dp[x]
 
 print(solution(0))
+print(dp)
