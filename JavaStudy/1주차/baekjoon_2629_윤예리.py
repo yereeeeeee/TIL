@@ -1,18 +1,28 @@
 import sys
 input = sys.stdin.readline
-from itertools import combinations
 
 n = int(input())
 weights = list(map(int, input().split()))
 m = int(input())
-marbles = sorted(list(map(int, input().split())))
+marbles = list(map(int, input().split()))
 
-dp = [False] * 40001
-for i in range(1, n+1):
-    comb_list = list(combinations(weights, i))
-    print(comb_list)
-    for comb in comb_list:
-        dp[sum(comb)] = True
+dp = [False] * 15001
 
-for i in range(m):
-    print('Y' if dp[marbles[i]] else 'N', end=' ')
+def solution(x, idx):
+    if dp[x]: return
+
+    dp[x] = True
+    # 1. 추만 두는 경우
+    if idx == n-1: return
+    solution(x+weights[idx+1], idx+1)
+    # 2. 추와 구슬을 같이 두는 경우
+    solution(abs(x-weights[idx+1]), idx+1)
+    
+
+for w in range(n):
+    solution(weights[w], w)
+
+for marble in marbles:
+    # print(marble, dp[marble])
+    if marble > 15000: print('N', end=' ')
+    else: print('Y' if dp[marble] else 'N', end=' ')
