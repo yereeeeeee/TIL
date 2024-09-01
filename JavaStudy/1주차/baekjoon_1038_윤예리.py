@@ -12,8 +12,8 @@ def solution(value, d, cnt):
     if cnt == n: return value
 
     for i in range(1, 10):
-
-
+        # 백트래킹
+        pass
 
 n = int(input())
 if n <= 10: exit(print(n))
