@@ -1,21 +1,31 @@
-# 감소하는 수라면 True 아니라면 False를 반환하는 함수
-def check(num):
-    string = str(num)
-    for s in range(len(string)-1):
-        if int(string[s]) <= int(string[s+1]):
-            return False
-    else:
-        return True
 
-def solution(value, d, cnt):
-    if value > 9876543210: exit(print(-1))
-    if cnt == n: return value
 
-    for i in range(1, 10):
-        # 백트래킹
-        pass
+
 
 n = int(input())
-if n <= 10: exit(print(n))
-solution(10, 1, 10)
-print()
+if n < 10: exit(print(n))
+cnt = 9
+visited = [False] * 10
+
+def check(length, target_len, value, i):
+    global cnt
+
+    if length == target_len: 
+        cnt += 1
+        # print(cnt, " ", value)
+        
+        if cnt == n:
+            exit(print(value))
+        return
+
+    for j in range(0, i):
+        if not visited[j]:
+            visited[j] = True
+            check(length+1, target_len, value+str(j), j)
+            visited[j] = False
+
+for i in range(2, 11): # 길이
+    for j in range(1, 10): # 첫 번째 숫자
+        check(1, i, str(j), j)      
+
+print(-1)
