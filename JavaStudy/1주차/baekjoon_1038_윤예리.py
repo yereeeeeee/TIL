@@ -1,7 +1,3 @@
-
-
-
-
 n = int(input())
 if n < 10: exit(print(n))
 cnt = 9
